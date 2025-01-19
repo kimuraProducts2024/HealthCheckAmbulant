@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+/* 文字フォント */
+* {
+	font-family: serif;
+}
+
+/* ヘッダ */
+header {
+	position:sticky;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	color: white;
+	background-color: deeppink;
+	align-items: center;
+	font-size: 28px;
+	
+}
+
+/* ヘッダ */
+.header-text {
+	margin-left: 16px;
+}
+
+/* コンテナ */
+.container {
+	position: absolute;
+	height: 650px;
+	display: flex;
+	align-items: center;
+	display: block;
+}
+
+/* コンテナ */
+.card-container {
+	width: 480px;
+	height: 490px;
+	text-align: center;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+	margin: 100px auto 0px;
+}
+
+/* ログインイメージ */
+.login-card {
+	margin: 45px auto 20px;
+	display: block;
+	width: 155px;
+	height: 155px;
+}
+
+/* ラベル */
+label {
+	vertical-align:sub;
+	width: 100px;
+}
+
+/* 各項目の行 */
+.row {
+
+	display: flex;
+}
+
+/* ラベル */
+.col-sm-2 {
+	margin-right: 15px;
+}
+
+/* テキストボックス */
+.col-content {
+	margin-bottom: 15px;
+}
+
+/* テキストボックス */
+.form-control {
+	width: 350px;
+}
+
+/* ログインボタン */
+.loginBtn {
+	margin: 10px auto;
+	color: white;
+	background-color: #2C7CFF;
+}
+
+/* ログインボタン */
+.loginBtn:hover {
+	color: white;
+	background-color: #005FFF;
+}
+
+/* エラーイメージ */
+.error-card {
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	width: 55px;
+	height: 55px;
+}
+
+/* エラーメッセージ */
+.message-area {
+	width: 250px;
+	font-size: 18px;
+	color: red;
+}
+
+/* エラーメッセージボタン */
+.errorBtn {
+	margin-left: 280px;
+	width: 130px;
+	color: white;
+	background-color: #FFCC66;
+}
+
+/* エラーメッセージボタン */
+.errorBtn:hover {
+	color: white;
+	background-color: #FFD700;
+}
+
+/* モーダルダイアログ */
+dialog {
+    position: absolute;
+    width: 450px;
+    padding: 30px 20px;
+    text-align: center;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px #888;
+}
