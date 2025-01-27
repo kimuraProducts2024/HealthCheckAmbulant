@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/* 文字フォント */
+* {
+	font-family: serif;
+}
+
+/* ヘッダ */
+header {
+	position:sticky;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	color: white;
+	background-color: deeppink;
+	align-items: center;
+	font-size: 28px;
+	
+}
+
+/* ヘッダ */
+.header-text {
+	margin-left: 16px;
+}

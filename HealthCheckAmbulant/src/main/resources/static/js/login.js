@@ -34,12 +34,12 @@ window.addEventListener("DOMContentLoaded", function() {
 	
 	// ボタンフォーカス時の色を設定するEventListenerを追加
 	closeBtn.addEventListener("mouseover", () => {
-		closeBtn.style.backgroundColor = "#FFD700";
+		closeBtn.style.backgroundColor = "gray";
 	});
 	
 	// ボタンロストフォーカス時の色を設定するEventListenerを追加
 	closeBtn.addEventListener("mouseleave", () => {
-		closeBtn.style.backgroundColor = "#FFCC66";
+		closeBtn.style.backgroundColor = "darkgray";
 	});
 
 	// エラーダイアログを閉じるEventListenerを追加

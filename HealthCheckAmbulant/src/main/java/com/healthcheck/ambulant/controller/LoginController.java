@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.healthcheck.ambulant.entity.M_User;
 import com.healthcheck.ambulant.service.M_UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 /**
  * ログインコントローラ
  * 初期表示、ログイン時の処理を行う
@@ -32,7 +34,7 @@ public class LoginController {
 	// ログインボタン押下時
 	@PostMapping("/login")
 	public String login(@RequestParam String user_id, @RequestParam String password, 
-							RedirectAttributes redirectAttributes) throws Exception {
+							RedirectAttributes redirectAttributes, HttpSession session) throws Exception {
 		// ユーザIDから対象ユーザを検索
 		M_User m_User = m_UserService.selectM_user(user_id);
 		
@@ -80,8 +82,8 @@ public class LoginController {
 			return "redirect:";
 		}
 		
-		// M_User情報受渡し
-		redirectAttributes.addFlashAttribute("m_user", m_User);
+		// M_User情報をセッションに設定
+		session.setAttribute("m_user", m_User);
 		
 		// メインメニューに遷移する
 		return "redirect:/MainMenu";
