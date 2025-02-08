@@ -1,64 +1,118 @@
 package com.healthcheck.ambulant.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.healthcheck.ambulant.common.CommonFunc;
+import com.healthcheck.ambulant.entity.M_Test_Item;
+import com.healthcheck.ambulant.service.M_Test_ItemService;
 
 import jakarta.servlet.http.HttpSession;
 
 /**
  * メインメニューコントローラ
+ * 初期表示、入力画面への遷移、ログアウト時の処理を行う
  */
 @Controller
 public class MainMenuController {
-	// メインメニュー画面表示
+	// 検査項目情報
+	M_Test_Item mTestItem;
+	
+	// ユーザ検査項目サービス定義
+	@Autowired
+	M_Test_ItemService mTestItemService;
+	
+	/**
+	 * メインメニュー画面を表示する
+	 * @param session セッション
+	 * @param mav モデルアンドビュー
+	 * @return 遷移先のHTMLファイル名
+	 */
 	@GetMapping("/MainMenu")
-	public ModelAndView showMainMenu(ModelAndView mav) {
+	public ModelAndView showMainMenu(HttpSession session, ModelAndView mav) {
+		// 入力画面タイプのセッションをnullに設定
+		session.setAttribute("InputType", null);
+		
 		// メインメニュー画面を表示
 		return mav;
 	}
 	
 	/**
-	 * クリックしたリンクのリンク先に遷移する
-	 * @param id リンクの種類を示すID
+	 * 身長入力画面に遷移する
+	 * @param session セッション
+	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	@GetMapping("/transition/{id}")
-	public String screenTransition(@PathVariable("id") Integer id) {
-		// 遷移先のHTMLファイル名
-		String screenName = null;
+	@GetMapping("/InputHeight") 
+	public String showInputHeight(HttpSession session, Model model) {
+		// 共通機能クラス変数
+		CommonFunc comFunc = new CommonFunc();
 		
-		// クリックしたリンクのID
-		switch (id) {
-			// 身長入力の場合
-			case 1:
-				screenName = "InputHeight.html";
-				break;
-			// 体重入力の場合
-			case 2:
-				screenName = "InputWidth.html";
-				break;
-			// 視力入力の場合
-			case 3:
-				screenName = "InputEyeTest.html";
-				break;
-			// 聴力入力の場合
-			case 4:
-				screenName = "InputHearingTest.html";
-				break;
-			// 血圧入力の場合
-			case 5:
-				screenName = "InputBloodPressure.html";
-				break;
-			// それ以外の場合
-			default:
-				screenName = "MainMenu.html";
-		}
+		// 身長入力の初期処理
+		comFunc.initInputHeight(session, model, mTestItem, mTestItemService);
+		 
+		// 遷移先のHTMLファイル名を返す
+		return "InputHeight";
+	}
+	 
+	/**
+	 * 体重入力画面に遷移する
+	 * @param session セッション
+	 * @return 遷移先のHTMLファイル名
+	 */
+	@GetMapping("/InputWeight") 
+	public String showInputWeight(HttpSession session, Model model) {
+//		// M_Test_Item情報を取得
+//		mTestItem = getMTestItem(session);
 		
 		// 遷移先のHTMLファイル名を返す
-		return screenName;
+	    return "InputWeight";
+	}
+	
+	/**
+	 * 視力入力画面に遷移する
+	 * @param session セッション
+	 * @return 遷移先のHTMLファイル名
+	 */
+	@GetMapping("/InputEyeTest") 
+	public String showInputEyeTest(HttpSession session, Model model) {
+//		// M_Test_Item情報を取得
+//		mTestItem = getMTestItem(session);
+		
+		// 遷移先のHTMLファイル名を返す
+	    return "InputEyeTest";
+	}
+	
+	/**
+	 * 聴力入力画面に遷移する
+	 * @param session セッション
+	 * @return 遷移先のHTMLファイル名
+	 */
+	@GetMapping("/InputHearingTest") 
+	public String showInputHearing(HttpSession session, Model model) {
+//		// M_Test_Item情報を取得
+//		mTestItem = getMTestItem(session);
+		
+		// 遷移先のHTMLファイル名を返す
+	    return "InputHearingTest";
+	}
+	
+	/**
+	 * 血圧入力画面に遷移する
+	 * @param session セッション
+	 * @return 遷移先のHTMLファイル名
+	 */
+	@GetMapping("/InputBloodPressure") 
+	public String showInputBloodPressure(HttpSession session, Model model) {
+//		// M_Test_Item情報を取得
+//		mTestItem = getMTestItem(session);
+		
+		// 遷移先のHTMLファイル名を返す
+	    return "InputBloodPressure";
 	}
 	
 	/**
@@ -70,13 +124,10 @@ public class MainMenuController {
 	 */
 	@PostMapping("/logout")
 	public String logout(HttpSession session) {
-		
 		// セッションをクリアする
 		session = null;
 		
 		// ログイン画面に遷移する
-		return "Login.html";
+		return "redirect:/";
 	}
-	
-	
 }

@@ -34,13 +34,13 @@ label {
 
 /* 各項目の行 */
 .row {
-
 	display: flex;
 }
 
 /* ラベル */
 .col-sm-2 {
-	margin-right: 15px;
+	margin-left: 40px;
+	margin-right: 25px;
 }
 
 /* テキストボックス */
@@ -50,27 +50,27 @@ label {
 
 /* テキストボックス */
 .form-control {
-	width: 350px;
+	width: 260px;
 }
 
 /* ログインボタン */
 .loginBtn {
 	margin: 10px auto;
 	color: white;
-	background-color: darkgray;
+	background-color: 	#A8BCF9;
 }
 
 /* ログインボタンホバー */
 .loginBtn:hover {
 	color: white;
-	background-color: gray;
+	background-color: #5D84F9;
 }
 
 /* エラーイメージ */
 .error-card {
 	position: absolute;
-	top: 15px;
-	left: 20px;
+	top: 19px;
+	left: 23px;
 	width: 55px;
 	height: 55px;
 }
@@ -84,16 +84,18 @@ label {
 
 /* エラーメッセージボタン */
 .errorBtn {
+	margin-top: 7px;
 	margin-left: 280px;
 	width: 130px;
+	height: 42px;
 	color: white;
-	background-color: darkgray;
+	background-color: #A8BCF9;
 }
 
 /* エラーメッセージボタンホバー */
 .errorBtn:hover {
 	color: white;
-	background-color: gray;
+	background-color: #5D84F9;
 }
 
 /* モーダルダイアログ */

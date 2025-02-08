@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.healthcheck.ambulant.entity.M_User;
 import com.healthcheck.ambulant.service.M_UserService;
@@ -83,7 +84,10 @@ public class LoginController {
 		}
 		
 		// M_User情報をセッションに設定
-		session.setAttribute("m_user", m_User);
+		session.setAttribute("m_User", m_User);
+		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("https://example.com");
 		
 		// メインメニューに遷移する
 		return "redirect:/MainMenu";
