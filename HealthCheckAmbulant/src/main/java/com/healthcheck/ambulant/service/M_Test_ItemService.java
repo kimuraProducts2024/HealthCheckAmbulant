@@ -36,4 +36,14 @@ public class M_Test_ItemService {
 	public int updateHeight(String user_id, BigDecimal height) {
 		return m_Test_ItemMapper.updateHeight(user_id, height);
 	}
+	
+	/**
+	 * U_Test_Itemテーブルから対象ユーザの体重を更新
+	 * @param user_id ユーザID
+	 * @param height 体重
+	 * @return 検索結果のM_Test_Itemオブジェクトを返す
+	 */
+	public int updateWeight(String user_id, BigDecimal weight) {
+		return m_Test_ItemMapper.updateWeight(user_id, weight);
+	}
 }

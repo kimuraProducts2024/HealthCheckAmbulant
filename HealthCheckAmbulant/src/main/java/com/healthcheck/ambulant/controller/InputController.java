@@ -84,6 +84,39 @@ public class InputController {
 			inputForm.setInputType(InputType.HEIGHT);
 		}
 		
+		// 画面が体重入力画面の場合
+		if (session.getAttribute("InputType").equals(InputType.WEIGHT)) {
+			// 体重整数部が未入力の場合
+			if (inputForm.getIntegerPart() == null) {
+				// エラーメッセージの設定
+				inputForm.setErrorLabel("体重整数部の値を入力してください。");
+				
+				// Modelに登録
+				model.addAttribute("inputForm", inputForm);
+				
+				// 遷移先のHTMLファイル名を返す
+				return "InputWeight";
+			}
+			
+			// 体重小数部が未入力の場合
+			if (inputForm.getDecimalPart() == null) {
+				// エラーメッセージの設定
+				inputForm.setErrorLabel("体重小数部の値を入力してください。");
+				
+				// Modelに登録
+				model.addAttribute("inputForm", inputForm);
+				
+				// 遷移先のHTMLファイル名を返す
+				return "InputWeight";
+			}
+			
+			// 画面表示文字列を体重に設定
+			inputForm.setLabelPart("体重");
+			
+			// InputTypeをWEIGHTに設定
+			inputForm.setInputType(InputType.WEIGHT);
+		}
+		
 		// Modelに登録
 		model.addAttribute("inputForm", inputForm);
 		
@@ -116,6 +149,15 @@ public class InputController {
 			return "InputHeight";
 		}
 		
+		// 画面が体重入力画面の場合
+		if (inputType.equals(InputType.WEIGHT)) {
+			// Modelに登録
+			model.addAttribute("inputForm", inputForm);
+			
+			// 遷移先のHTMLファイル名を返す
+			return "InputWeight";
+		}
+		
 		return "redirect:/";
 	}
 	
@@ -131,14 +173,14 @@ public class InputController {
 	@PostMapping(value = "/confirm", params = "completeBtn")
 	public String showComplete(InputForm inputForm, HttpSession session, Model model)
 	{
+		// 共通機能クラス変数
+		CommonFunc comFunc = new CommonFunc();
+		
 		// 入力タイプの取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
 		// 身長入力の場合
 		if (inputType.equals(InputType.HEIGHT)) {
-			// 共通機能クラス変数
-			CommonFunc comFunc = new CommonFunc();
-			 
 			// ユーザIDから対象検査項目情報を更新
 			int resultInt = comFunc.updateHeight(session, mTestItemService, inputForm.getIntegerPart(), inputForm.getDecimalPart());
 			
@@ -152,6 +194,24 @@ public class InputController {
 				
 				// 確認画面に戻る
 				return "InputHeight";
+			}
+		}
+		
+		// 体重入力の場合
+		if (inputType.equals(InputType.WEIGHT)) {
+			// ユーザIDから対象検査項目情報を更新
+			int resultInt = comFunc.updateWeight(session, mTestItemService, inputForm.getIntegerPart(), inputForm.getDecimalPart());
+			
+			// 更新件数が0件以下の場合
+			if (resultInt <= 0) {
+				// エラーメッセージの設定
+				inputForm.setErrorLabel("データの更新に失敗しました。");
+				
+				// リダイレクト変数の設定
+				model.addAttribute("inputType", inputType);
+				
+				// 確認画面に戻る
+				return "InputWeight";
 			}
 		}
 		

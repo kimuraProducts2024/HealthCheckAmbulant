@@ -26,6 +26,8 @@ public class MainMenuController {
 	@Autowired
 	M_Test_ItemService mTestItemService;
 	
+	CommonFunc comFunc = new CommonFunc();
+	
 	/**
 	 * メインメニュー画面を表示する
 	 * @param session セッション
@@ -49,9 +51,6 @@ public class MainMenuController {
 	 */
 	@GetMapping("/InputHeight") 
 	public String showInputHeight(HttpSession session, Model model) {
-		// 共通機能クラス変数
-		CommonFunc comFunc = new CommonFunc();
-		
 		// 身長入力の初期処理
 		comFunc.initInputHeight(session, model, mTestItem, mTestItemService);
 		 
@@ -66,8 +65,8 @@ public class MainMenuController {
 	 */
 	@GetMapping("/InputWeight") 
 	public String showInputWeight(HttpSession session, Model model) {
-//		// M_Test_Item情報を取得
-//		mTestItem = getMTestItem(session);
+		// 体重入力の初期処理
+		comFunc.initInputWeight(session, model, mTestItem, mTestItemService);
 		
 		// 遷移先のHTMLファイル名を返す
 	    return "InputWeight";

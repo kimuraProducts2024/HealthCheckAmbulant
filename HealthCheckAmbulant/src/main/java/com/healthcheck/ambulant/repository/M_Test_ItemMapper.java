@@ -16,4 +16,7 @@ public interface M_Test_ItemMapper {
 	
 	// ユーザIDをキーとして身長更新
 	int updateHeight(String user_id, BigDecimal height);
+	
+	// ユーザIDをキーとして体重更新
+	int updateWeight(String user_id, BigDecimal weight);
 }
