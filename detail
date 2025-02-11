@@ -1,4 +1,6 @@
 健康診断アプリ_受診者用
-言語：Java
-フレームワーク：Spring
-DB：MySQL
+言語：Java　version "20.0.2" 2023-07-18
+フレームワーク：Spring　version '3.4.1'
+DB：MySQL　version 8.4
+ビルドツール：　MyBatis 3.0.4
+BootStrap　5.3.0
