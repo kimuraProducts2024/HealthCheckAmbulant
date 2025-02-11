@@ -4,11 +4,11 @@
 情報が登録できるアプリ
 
 開発環境
-・開発言語：java、 javascript
+・開発言語：java　version "20.0.2" 2023-07-18、 javascript
 ・開発ツール：Eclipse 2023
-・フレームワーク：Spring Boot
+・フレームワーク：Spring Boot　version '3.4.1'
 ・ビルドツール：Gradle
 ・テンプレートエンジン：Thymeleaf
-・データベース：MySql、MySql WorkBench
+・データベース：MySql　version 8.4、MySql WorkBench
 ・ORM：MyBatis
-・画面デザイン：一部　BootStrap 5
+・画面デザイン：一部　BootStrap 5.3.0
