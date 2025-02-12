@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcheck.ambulant.common.CommonFunc;
-import com.healthcheck.ambulant.entity.M_Test_Item;
-import com.healthcheck.ambulant.service.M_Test_ItemService;
+import com.healthcheck.ambulant.entity.MTestItem;
+import com.healthcheck.ambulant.service.MTestItemService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,11 +20,11 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainMenuController {
 	// 検査項目情報
-	M_Test_Item mTestItem;
+	MTestItem mTestItem;
 	
 	// ユーザ検査項目サービス定義
 	@Autowired
-	M_Test_ItemService mTestItemService;
+	MTestItemService mTestItemService;
 	
 	CommonFunc comFunc = new CommonFunc();
 	

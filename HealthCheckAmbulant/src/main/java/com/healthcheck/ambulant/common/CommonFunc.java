@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import org.springframework.ui.Model;
 
-import com.healthcheck.ambulant.entity.M_Test_Item;
-import com.healthcheck.ambulant.entity.M_User;
+import com.healthcheck.ambulant.entity.MTestItem;
+import com.healthcheck.ambulant.entity.MUser;
 import com.healthcheck.ambulant.form.InputForm;
 import com.healthcheck.ambulant.form.InputForm.InputType;
-import com.healthcheck.ambulant.service.M_Test_ItemService;
+import com.healthcheck.ambulant.service.MTestItemService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -19,21 +19,21 @@ import jakarta.servlet.http.HttpSession;
 public class CommonFunc {
 	/**
 	 * 身長入力画面に遷移する際の初期処理
-	 * M_Test_Item情報を取得し、Modelに登録する
+	 * MTestItem情報を取得し、Modelに登録する
 	 * @param session セッション
 	 * @param model モデル
 	 * @param mTestItem 検査項目情報
 	 * @param mTestItemService ユーザ検査項目サービス
 	 */
 	public void initInputHeight(HttpSession session, Model model, 
-						M_Test_Item mTestItem, M_Test_ItemService mTestItemService) {
+						MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面情報
 		InputForm inputForm = new InputForm();
 		
-        // M_Test_Item情報を取得
+        // MTestItem情報を取得
 		mTestItem = getMTestItem(session, mTestItemService);
 		
-		// 取得したM_Test_Item情報、身長がnullでない場合
+		// 取得したMTestItem情報、身長がnullでない場合
 		if (mTestItem != null && mTestItem.getHeight() != null) {
 			BigDecimal tenDecimal = new BigDecimal("10.0");
 			BigDecimal decimalHeight = mTestItem.getHeight().remainder(BigDecimal.ONE).multiply(tenDecimal);
@@ -57,21 +57,21 @@ public class CommonFunc {
 	
 	/**
 	 * 体重入力画面に遷移する際の初期処理
-	 * M_Test_Item情報を取得し、Modelに登録する
+	 * MTestItem情報を取得し、Modelに登録する
 	 * @param session セッション
 	 * @param model モデル
 	 * @param mTestItem 検査項目情報
 	 * @param mTestItemService ユーザ検査項目サービス
 	 */
 	public void initInputWeight(HttpSession session, Model model, 
-						M_Test_Item mTestItem, M_Test_ItemService mTestItemService) {
+						MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面情報
 		InputForm inputForm = new InputForm();
 		
-        // M_Test_Item情報を取得
+        // MTestItem情報を取得
 		mTestItem = getMTestItem(session, mTestItemService);
 		
-		// 取得したM_Test_Item情報、体重がnullでない場合
+		// 取得したMTestItem情報、体重がnullでない場合
 		if (mTestItem != null && mTestItem.getWeight() != null) {
 			BigDecimal tenDecimal = new BigDecimal("10.0");
 			BigDecimal decimalWeight = mTestItem.getWeight().remainder(BigDecimal.ONE).multiply(tenDecimal);
@@ -94,56 +94,56 @@ public class CommonFunc {
 	}
 	
 	/**
-	 * M_Test_Item情報をセッションに設定
+	 * MTestItem情報をセッションに設定
 	 * @param session セッション
 	 * @param mTestItemService ユーザ検査項目サービス
 	 */
-	public M_Test_Item getMTestItem(HttpSession session, M_Test_ItemService mTestItemService) {
+	public MTestItem getMTestItem(HttpSession session, MTestItemService mTestItemService) {
 		// M_Userセッション情報を取得
-		M_User m_User = (M_User)session.getAttribute("m_User");
+		MUser mUser = (MUser)session.getAttribute("mUser");
 				
 		// ユーザIDから対象検査項目情報を検索
-		M_Test_Item m_Test_Item = mTestItemService.selectM_Test_Item(m_User.getUser_id().toString());
+		MTestItem mTestItem = mTestItemService.selectMTestItem(mUser.getUserId().toString());
 
-		// 取得したM_Test_Item情報をセッションに設定
-		return m_Test_Item;
+		// 取得したMTestItem情報をセッションに設定
+		return mTestItem;
 	}
 	
 	/**
-	 * M_Test_Item情報の身長を更新
+	 * MTestItem情報の身長を更新
 	 * @param session セッション
 	 * @param mTestItemService ユーザ検査項目サービス
 	 */
-	public int updateHeight(HttpSession session,M_Test_ItemService mTestItemService, int integerPart, int decimalPart) {
-		// M_Userセッション情報を取得
-		M_User m_User = (M_User)session.getAttribute("m_User");
+	public int updateHeight(HttpSession session,MTestItemService mTestItemService, int integerPart, int decimalPart) {
+		// MUserセッション情報を取得
+		MUser mUser = (MUser)session.getAttribute("mUser");
 		
 		// 身長の値に変換
 		BigDecimal heightBg = new BigDecimal(String.valueOf(integerPart) + "." + String.valueOf(decimalPart));
 		
 		// ユーザIDから対象検査項目情報を更新
-		int resultInt = mTestItemService.updateHeight(String.valueOf(m_User.getUser_id()), heightBg);
+		int resultInt = mTestItemService.updateHeight(String.valueOf(mUser.getUserId()), heightBg);
 
-		// 取得したM_Test_Item情報をセッションに設定
+		// 取得したMTestItem情報をセッションに設定
 		return resultInt;
 	}
 	
 	/**
-	 * M_Test_Item情報の体重を更新
+	 * MTestItem情報の体重を更新
 	 * @param session セッション
 	 * @param mTestItemService ユーザ検査項目サービス
 	 */
-	public int updateWeight(HttpSession session,M_Test_ItemService mTestItemService, int integerPart, int decimalPart) {
-		// M_Userセッション情報を取得
-		M_User m_User = (M_User)session.getAttribute("m_User");
+	public int updateWeight(HttpSession session,MTestItemService mTestItemService, int integerPart, int decimalPart) {
+		// MUserセッション情報を取得
+		MUser mUser = (MUser)session.getAttribute("mUser");
 		
 		// 体重の値に変換
 		BigDecimal weightBg = new BigDecimal(String.valueOf(integerPart) + "." + String.valueOf(decimalPart));
 		
 		// ユーザIDから対象検査項目情報を更新
-		int resultInt = mTestItemService.updateWeight(String.valueOf(m_User.getUser_id()), weightBg);
+		int resultInt = mTestItemService.updateWeight(String.valueOf(mUser.getUserId()), weightBg);
 
-		// 取得したM_Test_Item情報をセッションに設定
+		// 取得したMTestItem情報をセッションに設定
 		return resultInt;
 	}
 }

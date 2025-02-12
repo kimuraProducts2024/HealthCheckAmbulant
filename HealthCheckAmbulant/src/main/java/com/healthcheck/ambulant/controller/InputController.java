@@ -6,10 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.healthcheck.ambulant.common.CommonFunc;
-import com.healthcheck.ambulant.entity.M_Test_Item;
+import com.healthcheck.ambulant.entity.MTestItem;
 import com.healthcheck.ambulant.form.InputForm;
 import com.healthcheck.ambulant.form.InputForm.InputType;
-import com.healthcheck.ambulant.service.M_Test_ItemService;
+import com.healthcheck.ambulant.service.MTestItemService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,11 +20,11 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class InputController {
 	// 検査項目情報
-	M_Test_Item mTestItem;
+	MTestItem mTestItem;
 	
 	// ユーザ検査項目サービス定義
 	@Autowired
-	M_Test_ItemService mTestItemService;
+	MTestItemService mTestItemService;
 	
 	/**
 	 * 入力画面：戻るボタンクリック
@@ -163,7 +163,7 @@ public class InputController {
 	
 	/**
 	 * 確認画面：確定ボタンクリック
-	 * 入力値から、M_Test_Itemテーブルの情報を更新し、
+	 * 入力値から、MTestItemテーブルの情報を更新し、
 	 * 完了の場合、登録完了画面へ遷移する
 	 * @param inputForm 入力画面情報
 	 * @param session セッション

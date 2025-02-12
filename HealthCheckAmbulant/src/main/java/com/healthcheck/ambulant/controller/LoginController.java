@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.healthcheck.ambulant.entity.M_User;
-import com.healthcheck.ambulant.service.M_UserService;
+import com.healthcheck.ambulant.entity.MUser;
+import com.healthcheck.ambulant.service.MUserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController {
 	// ユーザサービス定義
 	@Autowired
-	M_UserService m_UserService;
+	MUserService mUserService;
 	
 	// ログイン画面表示
 	@GetMapping("/")
@@ -33,16 +33,16 @@ public class LoginController {
 	
 	// ログインボタン押下時
 	@PostMapping("/login")
-	public String login(@RequestParam String user_id, @RequestParam String password, 
+	public String login(@RequestParam String userId, @RequestParam String password, 
 							RedirectAttributes redirectAttributes, HttpSession session) throws Exception {
 		// ユーザIDから対象ユーザを検索
-		M_User m_User = m_UserService.selectM_user(user_id);
+		MUser mUser = mUserService.selectMUser(userId);
 		
 		// 該当ユーザ存在チェック
 		// ユーザが存在しない場合
-		if (m_User == null) {
+		if (mUser == null) {
 			// ユーザID受渡し
-			redirectAttributes.addFlashAttribute("user_id", user_id);
+			redirectAttributes.addFlashAttribute("userId", userId);
 			
 			// パスワード受渡し
 			redirectAttributes.addFlashAttribute("password", password);
@@ -68,9 +68,9 @@ public class LoginController {
 		}
 		
 		// 入力したパスワードの値がDBのパスワードの値と異なる場合
-		if (!m_User.getPassword().equals(sb.toString())) {
+		if (!mUser.getPassword().equals(sb.toString())) {
 			// ユーザID受渡し
-			redirectAttributes.addFlashAttribute("user_id", user_id);
+			redirectAttributes.addFlashAttribute("userId", userId);
 			
 			// パスワード受渡し
 			redirectAttributes.addFlashAttribute("password", password);
@@ -82,8 +82,8 @@ public class LoginController {
 			return "redirect:";
 		}
 		
-		// M_User情報をセッションに設定
-		session.setAttribute("m_User", m_User);
+		// MUser情報をセッションに設定
+		session.setAttribute("mUser", mUser);
 		
 		// メインメニューに遷移する
 		return "redirect:/MainMenu";
