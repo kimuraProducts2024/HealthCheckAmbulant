@@ -5,7 +5,6 @@
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/common.css}" />
 	<link rel="stylesheet" th:href="@{/css/login.css}" />
-	<script type="text/javascript" th:src="@{/js/login.js}"></script>
 	<meta charset="UTF-8">
 	<title>ログイン</title>
 </head>
@@ -25,7 +24,7 @@
 				<img id="login-img" class="login-card" th:src="@{image/Login.png}" />
 				<!-- 各項目 -->
 				<div>
-					<form th:action="@{/login}" method="post" onsubmit="return txtEmptyCheck()">
+					<form th:action="@{/login}" method="post" >
 						<!-- タイトル -->
 						<div class="row">
 							<div class="col col-content">
@@ -38,7 +37,7 @@
 								<label for="loginLabel" class="form-label">ID</label>
 							</div>
 							<div class="col col-content">
-								<input type="text" id="userId" class="form-control" name="user_id" th:value="${user_id}" placeholder="ID">
+								<input type="text" id="userId" class="form-control" name="userId" th:value="${userId}" placeholder="ID">
 							</div>
 						</div>
 						<!-- パスワード -->
@@ -54,59 +53,14 @@
 						<div>
 							<input type="submit" id="loginBtn" class="btn btn-lg w-75 loginBtn" value="ログイン">
 						</div>
-					</form>
-					<!-- エラーダイアログ -->
-					<form>
-						<div>
-							<dialog id="dialog">
-								<div class="row">
-									<!-- エラーイメージ -->
-									<div class="col-2">
-										<img id="error-img" class="error-card" th:src="@{image/Error.png}" />
-									</div>
-									<!-- エラーメッセージ -->
-									<div class="col-4">
-										<p id="errorMessage" class="message-area"></p>
-									</div>
-								</div>
-								<!-- 閉じるボタン -->
- 								<div class="row">
-									 <button id="closeBtn" class="btn errorBtn" style="color: white; background-color: #A8BCF9;" formmethod="dialog">閉じる</button>
-								</div>
-							</dialog>
+						<!-- エラーメッセージ -->
+						<div class="row login-errorMsg">
+							<label id="errorLabel" class="error-label" name="errorLabel" th:text="${errorLabel}"></label>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</main>
-	<!-- ユーザID、パスワードエラー時処理 -->
-	<script type="text/javascript" th:inline="javascript">
-		// エラーステータス
-		let errorStatus = /*[[${errorstatus}]]*/"0";
-		
-		// エラーダイアログ要素を取得
-		errorDialog = document.getElementById("dialog");
-		
-		// エラーメッセージ要素を取得
-		errorMessage = document.getElementById("errorMessage");
-		
-		// ステータス：1 ユーザ未存在の場合
-		if (errorStatus == "1") {
-			// メッセージを設定
-			errorMessage.innerHTML = "該当ユーザが存在しません。";
-			
-			// エラーダイアログを開く
-			errorDialog.showModal();
-		}
-		// ステータス：2 パスワード相違の場合
-		else if (errorStatus == "2") {
-			// メッセージを設定
-			errorMessage.innerHTML = "パスワードが異なります。";
-			
-			// エラーダイアログを開く
-			errorDialog.showModal();
-		}
-	</script>
 </body>
 </html>
