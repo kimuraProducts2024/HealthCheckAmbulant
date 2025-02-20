@@ -12,7 +12,7 @@
 /* コンテナ */
 .card-container {
 	width: 480px;
-	height: 490px;
+	height: 500px;
 	text-align: center;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 	margin: 100px auto 0px;
@@ -34,13 +34,13 @@ label {
 
 /* 各項目の行 */
 .row {
-
 	display: flex;
 }
 
 /* ラベル */
 .col-sm-2 {
-	margin-right: 15px;
+	margin-left: 40px;
+	margin-right: 25px;
 }
 
 /* テキストボックス */
@@ -50,59 +50,24 @@ label {
 
 /* テキストボックス */
 .form-control {
-	width: 350px;
+	width: 260px;
 }
 
 /* ログインボタン */
 .loginBtn {
 	margin: 10px auto;
 	color: white;
-	background-color: darkgray;
+	background-color: 	#A8BCF9;
 }
 
 /* ログインボタンホバー */
 .loginBtn:hover {
 	color: white;
-	background-color: gray;
-}
-
-/* エラーイメージ */
-.error-card {
-	position: absolute;
-	top: 15px;
-	left: 20px;
-	width: 55px;
-	height: 55px;
+	background-color: #5D84F9;
 }
 
 /* エラーメッセージ */
-.message-area {
-	width: 250px;
-	font-size: 18px;
-	color: red;
+.login-errorMsg {
+	margin-top: 5px;
 }
 
-/* エラーメッセージボタン */
-.errorBtn {
-	margin-left: 280px;
-	width: 130px;
-	color: white;
-	background-color: darkgray;
-}
-
-/* エラーメッセージボタンホバー */
-.errorBtn:hover {
-	color: white;
-	background-color: gray;
-}
-
-/* モーダルダイアログ */
-dialog {
-    position: absolute;
-    width: 450px;
-    padding: 30px 20px;
-    text-align: center;
-    border: 1px solid #aaa;
-    border-radius: 10px;
-    box-shadow: 2px 2px 4px #888;
-}
