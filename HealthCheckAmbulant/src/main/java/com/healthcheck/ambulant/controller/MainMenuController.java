@@ -4,18 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcheck.ambulant.common.CommonFunc;
 import com.healthcheck.ambulant.entity.MTestItem;
+import com.healthcheck.ambulant.form.InputForm;
 import com.healthcheck.ambulant.service.MTestItemService;
 
 import jakarta.servlet.http.HttpSession;
 
 /**
  * メインメニューコントローラ
- * 初期表示、入力画面への遷移、ログアウト時の処理を行う
+ * 初期表示、各入力画面への遷移、ログアウト時の処理を行う
  */
 @Controller
 public class MainMenuController {
@@ -26,96 +27,44 @@ public class MainMenuController {
 	@Autowired
 	MTestItemService mTestItemService;
 	
-	CommonFunc comFunc = new CommonFunc();
-	
 	/**
-	 * メインメニュー画面を表示する
-	 * @param session セッション
-	 * @param mav モデルアンドビュー
+	 * 登録完了画面：メインメニュー画面に遷移する
 	 * @return 遷移先のHTMLファイル名
 	 */
-	@GetMapping("/MainMenu")
-	public ModelAndView showMainMenu(HttpSession session, ModelAndView mav) {
-		// 入力画面タイプのセッションをnullに設定
-		session.setAttribute("InputType", null);
-		
-		// メインメニュー画面を表示
-		return mav;
+	@GetMapping("/mainmenu")
+	public String showMainMenu() {
+		return "MainMenu.html";
 	}
 	
 	/**
-	 * 身長入力画面に遷移する
+	 * メインメニュー画面：クリックしたリンクの、リンク先に遷移する
+	 * @param id リンクの種類を示すID
+	 * @param inputForm 入力画面の各項目情報
 	 * @param session セッション
 	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	@GetMapping("/InputHeight") 
-	public String showInputHeight(HttpSession session, Model model) {
-		// 身長入力の初期処理
-		comFunc.initInputHeight(session, model, mTestItem, mTestItemService);
-		 
-		// 遷移先のHTMLファイル名を返す
-		return "InputHeight";
-	}
-	 
-	/**
-	 * 体重入力画面に遷移する
-	 * @param session セッション
-	 * @return 遷移先のHTMLファイル名
-	 */
-	@GetMapping("/InputWeight") 
-	public String showInputWeight(HttpSession session, Model model) {
-		// 体重入力の初期処理
-		comFunc.initInputWeight(session, model, mTestItem, mTestItemService);
+	@GetMapping("/transition/{id}")
+	public String showNextPage(@PathVariable("id") Integer id, 
+			InputForm inputForm, HttpSession session, Model model) {
+		// エラーメッセージをクリアする
+		inputForm.setErrorLabel("");
+		
+		// 入力画面の各項目情報をモデルに追加する
+		model.addAttribute("inputForm", inputForm);
+		
+		// 共通機能クラスインスタンス生成
+		CommonFunc comFunc = new CommonFunc();
+		
+		// 各入力画面に遷移する際の初期処理
+		comFunc.initInput(id, session, model, mTestItem, mTestItemService);
 		
 		// 遷移先のHTMLファイル名を返す
-	    return "InputWeight";
+		return comFunc.getNextPageName(id);
 	}
-	
+
 	/**
-	 * 視力入力画面に遷移する
-	 * @param session セッション
-	 * @return 遷移先のHTMLファイル名
-	 */
-	@GetMapping("/InputEyeTest") 
-	public String showInputEyeTest(HttpSession session, Model model) {
-//		// M_Test_Item情報を取得
-//		mTestItem = getMTestItem(session);
-		
-		// 遷移先のHTMLファイル名を返す
-	    return "InputEyeTest";
-	}
-	
-	/**
-	 * 聴力入力画面に遷移する
-	 * @param session セッション
-	 * @return 遷移先のHTMLファイル名
-	 */
-	@GetMapping("/InputHearingTest") 
-	public String showInputHearing(HttpSession session, Model model) {
-//		// M_Test_Item情報を取得
-//		mTestItem = getMTestItem(session);
-		
-		// 遷移先のHTMLファイル名を返す
-	    return "InputHearingTest";
-	}
-	
-	/**
-	 * 血圧入力画面に遷移する
-	 * @param session セッション
-	 * @return 遷移先のHTMLファイル名
-	 */
-	@GetMapping("/InputBloodPressure") 
-	public String showInputBloodPressure(HttpSession session, Model model) {
-//		// M_Test_Item情報を取得
-//		mTestItem = getMTestItem(session);
-		
-		// 遷移先のHTMLファイル名を返す
-	    return "InputBloodPressure";
-	}
-	
-	/**
-	 * ログアウトボタン押下時処理
+	 * メインメニュー画面：ログアウトボタン押下時処理
 	 * セッションを削除し、ログアウト
 	 * ログイン画面を表示する
 	 * @param session セッション

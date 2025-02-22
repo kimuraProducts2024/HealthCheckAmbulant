@@ -15,15 +15,12 @@
     <result column="systolic_blood_pressure" property="systolicBloodPressure" />
     <result column="disastolic_blood_pressure" property="disastolicBloodPressure" />
  </resultMap>
- 	<!-- 検索 -->
     <select id="selectMTestItem" resultMap="resultMap2">
     	SELECT * FROM m_test_item WHERE user_id = #{userId}
     </select>
-    <!-- 身長の更新 -->
     <update id="updateHeight">
     	UPDATE m_test_item SET height = #{height} WHERE user_id = #{userId}
     </update>
-    <!-- 体重の更新 -->
     <update id="updateWeight">
     	UPDATE m_test_item SET weight = #{weight} WHERE user_id = #{userId}
     </update>

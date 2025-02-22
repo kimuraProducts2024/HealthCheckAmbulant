@@ -3,7 +3,8 @@ package com.healthcheck.ambulant.entity;
 import lombok.Data;
 
 /**
- * MUserテーブルエンティティクラス
+ * m_userテーブルエンティティクラス
+ * ユーザマスタテーブルに対応する実体クラス
  */
 @Data
 public class MUser {

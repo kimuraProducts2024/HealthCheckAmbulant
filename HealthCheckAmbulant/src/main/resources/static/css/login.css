@@ -12,7 +12,7 @@
 /* コンテナ */
 .card-container {
 	width: 480px;
-	height: 490px;
+	height: 500px;
 	text-align: center;
 	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 	margin: 100px auto 0px;
@@ -66,45 +66,8 @@ label {
 	background-color: #5D84F9;
 }
 
-/* エラーイメージ */
-.error-card {
-	position: absolute;
-	top: 19px;
-	left: 23px;
-	width: 55px;
-	height: 55px;
-}
-
 /* エラーメッセージ */
-.message-area {
-	width: 250px;
-	font-size: 18px;
-	color: red;
+.login-errorMsg {
+	margin-top: 5px;
 }
 
-/* エラーメッセージボタン */
-.errorBtn {
-	margin-top: 7px;
-	margin-left: 280px;
-	width: 130px;
-	height: 42px;
-	color: white;
-	background-color: #A8BCF9;
-}
-
-/* エラーメッセージボタンホバー */
-.errorBtn:hover {
-	color: white;
-	background-color: #5D84F9;
-}
-
-/* モーダルダイアログ */
-dialog {
-    position: absolute;
-    width: 450px;
-    padding: 30px 20px;
-    text-align: center;
-    border: 1px solid #aaa;
-    border-radius: 10px;
-    box-shadow: 2px 2px 4px #888;
-}

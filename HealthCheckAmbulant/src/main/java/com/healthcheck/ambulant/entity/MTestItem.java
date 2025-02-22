@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 /**
- * MTestItemテーブルエンティティクラス
+ * m_test_itemテーブルエンティティクラス
+ * 検査項目テーブルに対応する実体クラス
  */
 @Data
 public class MTestItem {
