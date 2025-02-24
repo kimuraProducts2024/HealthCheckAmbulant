@@ -30,27 +30,58 @@
 						<!-- 身長 -->
 						<div class="col input-col" th:case="0">
 							<label class="input-label input-label-top" th:text="*{labelPart}"></label>
-							<input type="number" id="integerPart" class="form-control integer-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
+							<input type="number" id="integerPart" class="form-control text-end three-digit-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
 							<label class="input-label">．</label>
-							<input type="number" id="decimalPart" class="form-control decimal-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
+							<input type="number" id="decimalPart" class="form-control one-digit-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
 							<label class="input-label">cm</label>
 						</div>
 						<!-- 体重 -->
 						<div class="col input-col" th:case="1">
 							<label class="input-label input-label-top" th:text="*{labelPart}"></label>
-							<input type="number" id="integerPart" class="form-control integer-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
+							<input type="number" id="integerPart" class="form-control text-end three-digit-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
 							<label class="input-label">．</label>
-							<input type="number" id="decimalPart" class="form-control decimal-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
+							<input type="number" id="decimalPart" class="form-control one-digit-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
 							<label class="input-label">kg</label>
+						</div>
+						<!-- 視力 -->
+						<div th:case="2">
+							<div class="row">
+								<div class="col input-col">
+									<label class="input-label input-label-top">左目</label>
+									<input type="number" id="leftIntegerPart" class="form-control text-end one-digit-part confirm-label" name="leftIntegerPart" th:field="*{leftIntegerPart}"  tabindex="-1" readonly />
+									<label class="input-label">．</label>
+									<input type="number" id="leftDecimalPart" class="form-control three-digit-part confirm-label" name="leftDecimalPart" th:field="*{leftDecimalPart}"  tabindex="-1" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col input-col">
+									<label class="input-label input-label-top">右目</label>
+									<input type="number" id="rightIntegerPart" class="form-control text-end one-digit-part confirm-label" name="rightIntegerPart" th:field="*{rightIntegerPart}"  tabindex="-1" readonly />
+									<label class="input-label">．</label>
+									<input type="number" id="rightDecimalPart" class="form-control three-digit-part confirm-label" name="rightDecimalPart" th:field="*{rightDecimalPart}" tabindex="-1" readonly />
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- 各ボタン -->
-					<div class="btn-container">
-						<div>
-							<input type="submit" id="returnBtn" class="btn btn-lg return-button" name="returnBtn" value="戻る">
+					<div th:if="*{inputType.ordinal() == 2 or inputType.ordinal() == 4}">
+						<div class="btn-container2">
+							<div>
+								<input type="submit" id="returnBtn" class="btn btn-lg return-button" name="returnBtn" value="戻る">
+							</div>
+							<div>
+								<input type="submit" id="completeBtn" class="btn btn-lg complete-button" name="completeBtn" value="確定">
+							</div>
 						</div>
-						<div>
-							<input type="submit" id="completeBtn" class="btn btn-lg complete-button" name="completeBtn" value="確定">
+					</div>
+					<div th:unless="*{inputType.ordinal() == 2 or inputType.ordinal() == 4}">
+						<div class="btn-container">
+							<div>
+								<input type="submit" id="returnBtn" class="btn btn-lg return-button" name="returnBtn" value="戻る">
+							</div>
+							<div>
+								<input type="submit" id="completeBtn" class="btn btn-lg complete-button" name="completeBtn" value="確定">
+							</div>
 						</div>
 					</div>
 				</form>

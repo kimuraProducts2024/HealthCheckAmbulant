@@ -79,6 +79,34 @@ public class CommonFunc {
 				break;
 			// 視力入力の場合
 			case 3:
+				// 取得したMTestItem情報、左目視力がともにnullでない場合
+				if (mTestItem != null && mTestItem.getVisionLeft() != null) {
+					// 左目視力小数部1桁を1000倍にした値を取得
+					BigDecimal thousandDecimal = new BigDecimal("1000.0");
+					BigDecimal decimalVision = mTestItem.getVisionLeft().remainder(BigDecimal.ONE).multiply(thousandDecimal);
+					
+					// 左目視力の整数部を設定
+					inputForm.setLeftIntegerPart(mTestItem.getVisionLeft().intValue());
+					
+					// 左目視力の小数部を設定
+					inputForm.setLeftDecimalPart(decimalVision.intValue());
+				}
+				
+				// 取得したMTestItem情報、右目視力がともにnullでない場合
+				if (mTestItem != null && mTestItem.getVisionRight() != null) {
+					// 右目視力小数部1桁を1000倍にした値を取得
+					BigDecimal thousandDecimal = new BigDecimal("1000.0");
+					BigDecimal decimalVision = mTestItem.getVisionRight().remainder(BigDecimal.ONE).multiply(thousandDecimal);
+					
+					// 右目視力の整数部を設定
+					inputForm.setRightIntegerPart(mTestItem.getVisionRight().intValue());
+					
+					// 右目視力の小数部を設定
+					inputForm.setRightDecimalPart(decimalVision.intValue());
+				}
+				
+				// 入力画面タイプをEYETESTに設定
+				inputType = InputType.EYETEST;
 				break;
 			// 聴力入力の場合
 			case 4:
@@ -182,7 +210,7 @@ public class CommonFunc {
 					break;
 				}
 				
-				// 身長整数部が1000以上の場合
+				// 身長整数部が4桁以上の場合
 				if (inputForm.getIntegerPart() >= 1000) {
 					// エラーメッセージを設定し、モデルに登録する
 					setErrorLabel("身長整数部は3桁以下で入力してください。", inputForm, model);
@@ -233,7 +261,7 @@ public class CommonFunc {
 					break;
 				}
 				
-				// 体重整数部が1000以上の場合
+				// 体重整数部が4桁以上の場合
 				if (inputForm.getIntegerPart() >= 1000) {
 					// エラーメッセージを設定し、モデルに登録する
 					setErrorLabel("体重整数部は3桁以下で入力してください。", inputForm, model);
@@ -258,6 +286,97 @@ public class CommonFunc {
 				
 				// InputTypeをWEIGHTに設定
 				inputForm.setInputType(InputType.WEIGHT);
+				
+				// 確認画面に設定
+				screenName = "Confirm";
+				break;
+			// 視力の場合
+			case EYETEST:
+				// 左目視力整数部が未入力の場合
+				if (inputForm.getLeftIntegerPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("左目整数部の値を入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 左目視力小数部が未入力の場合
+				if (inputForm.getLeftDecimalPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("左目小数部の値を入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 左目視力整数部が2桁以上の場合
+				if (inputForm.getLeftIntegerPart() >= 10) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("左目整数部は1桁で入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 左目視力小数部が4桁以上の場合
+				if (inputForm.getLeftDecimalPart() >= 1000) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("左目小数部は3桁以下で入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 右目視力整数部が未入力の場合
+				if (inputForm.getRightIntegerPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setLowerErrorLabel("右目整数部の値を入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 右目視力小数部が未入力の場合
+				if (inputForm.getRightDecimalPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setLowerErrorLabel("右目小数部の値を入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 右目視力整数部が2桁以上の場合
+				if (inputForm.getRightIntegerPart() >= 10) {
+					// エラーメッセージを設定し、モデルに登録する
+					setLowerErrorLabel("右目整数部は1桁で入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 右目視力小数部が4桁以上の場合
+				if (inputForm.getRightDecimalPart() >= 1000) {
+					// エラーメッセージを設定し、モデルに登録する
+					setLowerErrorLabel("右目小数部は3桁以下で入力してください。", inputForm, model);
+					
+					// 視力入力画面に設定
+					screenName = "InputEyeTest";
+					break;
+				}
+				
+				// 画面表示文字列を視力に設定
+				inputForm.setLabelPart("視力");
+				
+				// InputTypeをEYETESTに設定
+				inputForm.setInputType(InputType.EYETEST);
 				
 				// 確認画面に設定
 				screenName = "Confirm";
@@ -365,6 +484,11 @@ public class CommonFunc {
 					// 体重入力画面に設定
 					screenName = "InputWeight";
 					break;
+				// 視力の場合
+				case EYETEST:
+					// 体重入力画面に設定
+					screenName = "InputEyeTest";
+					break;
 				default:
 					break;
 			}
@@ -380,8 +504,8 @@ public class CommonFunc {
 	}
 	
 	/**
-	 * InputFormに、引数のエラーメッセージ
-	 * を設定し、モデルに登録する
+	 * InputFormのエラーラベルに、
+	 * 引数のエラーメッセージを設定し、モデルに登録する
 	 * @param strMessage エラーメッセージ文字列
 	 * @param inputForm 入力画面の各項目情報
 	 * @param model モデル
@@ -389,6 +513,21 @@ public class CommonFunc {
 	private void setErrorLabel(String strMessage, InputForm inputForm, Model model) {
 		// エラーメッセージの設定
 		inputForm.setErrorLabel(strMessage);
+		
+		// Modelに登録
+		model.addAttribute("inputForm", inputForm);
+	}
+	
+	/**
+	 * InputFormの下部エラーラベルに、
+	 * 引数のエラーメッセージを設定し、モデルに登録する
+	 * @param strMessage エラーメッセージ文字列
+	 * @param inputForm 入力画面の各項目情報
+	 * @param model モデル
+	 */
+	private void setLowerErrorLabel(String strMessage, InputForm inputForm, Model model) {
+		// エラーメッセージの設定
+		inputForm.setLowerErrorLabel(strMessage);
 		
 		// Modelに登録
 		model.addAttribute("inputForm", inputForm);

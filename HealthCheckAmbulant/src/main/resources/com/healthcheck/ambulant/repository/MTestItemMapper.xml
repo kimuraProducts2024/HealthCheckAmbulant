@@ -24,6 +24,9 @@
     <update id="updateWeight">
     	UPDATE m_test_item SET weight = #{weight} WHERE user_id = #{userId}
     </update>
+    <update id="updateVision">
+    	UPDATE m_test_item SET vision_right = #{visionRight}, vision_left = #{visionLeft} WHERE user_id = #{userId}
+    </update>
 </mapper>
 
 

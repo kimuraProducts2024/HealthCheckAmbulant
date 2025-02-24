@@ -19,4 +19,7 @@ public interface MTestItemMapper {
 	
 	// ユーザIDをキーとして体重更新
 	int updateWeight(String userId, BigDecimal weight);
+	
+	// ユーザIDをキーとして視力更新
+	int updateVision(String userId, BigDecimal visionLeft, BigDecimal visionRight);
 }
