@@ -3,21 +3,22 @@ package com.healthcheck.ambulant.entity;
 import lombok.Data;
 
 /**
- * M_Userテーブルエンティティクラス
+ * m_userテーブルエンティティクラス
+ * ユーザマスタテーブルに対応する実体クラス
  */
 @Data
-public class M_User {
+public class MUser {
 	// ユーザID
-	private Integer user_id;
+	private Integer userId;
 	
 	// パスワード
 	private String password;
 	
 	// 苗字
-	private String first_name;
+	private String firstName;
 	
 	// 名前
-	private String last_name;
+	private String lastName;
 	
 	// 年齢
 	private int age;

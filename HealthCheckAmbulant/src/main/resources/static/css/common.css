@@ -15,10 +15,155 @@ header {
 	background-color: deeppink;
 	align-items: center;
 	font-size: 28px;
-	
 }
 
 /* ヘッダ */
 .header-text {
 	margin-left: 16px;
+}
+
+/* コンテナ */
+.container 
+{
+	margin: auto;
+	position: absolute;
+	height: 650px;
+	align-items: center;
+}
+
+/* サブコンテナ */
+.sub-container {
+	width: 680px;
+	height: 490px;
+	text-align: center;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+	margin: 100px auto 0px;
+	background: #F9E6EB;
+}
+
+/* コンテナ内タイトル */
+.sub-title 
+{
+	margin-top: 55px;
+	font-size: 25px;
+}
+
+/* エラーメッセージ */
+.error-label
+{
+	color: red;
+}
+
+/* 表示項目 */
+.input-col {
+	display: flex;
+	margin-top: 20px;
+	margin-left: 160px;
+}
+
+/* 表示項目ラベル */
+.input-label {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 3px;
+	font-size: 19px;
+}
+
+/* 表示項目ラベル：先頭 */
+.input-label-top
+{
+	margin-right: 38px;
+	line-height: 24px;
+}
+
+/* 数値テキスト：スピンボタン非表示 */
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+/* 数値ラベル：背景色透明 */
+.confirm-label {
+	pointer-events: none;
+	background-color: transparent;
+}
+
+/* 数値テキスト：整数部 */
+.integer-part {
+	padding-right:16px;
+	padding-top:13px;
+	width: 150px;
+	text-align: right;	
+}
+
+/* 数値テキスト：小数部 */
+.decimal-part {
+	padding-top:13px;
+	text-align: left;
+	width: 80px;
+}
+
+/* ボタンコンテナ */
+.btn-container
+{
+	display: flex;
+	margin-top: 180px;
+	margin-left: 60px;
+}
+
+/* 各ボタン */
+.btn {
+	width: 240px;
+	height: 50px;
+	margin-right: 55px;
+	color: white;
+}
+
+/* 各ボタンホバー */
+.btn:hover {
+	color: white;
+}
+
+/* 戻るボタン */
+.return-button {
+	background-color: #A8BCF9;
+}
+
+/* 戻るボタンホバー */
+.return-button:hover {
+	background-color: #5D84F9;
+}
+
+/* 確認・確定ボタン */
+.confirm-button, .complete-button {
+	background-color: #F99CB3;
+}
+
+/* 確認・確定ボタンホバー */
+.confirm-button:hover, .complete-button:hover {
+	background-color: #F95D84;
+}
+
+/* メインメニューへ戻るリンク */
+.mainmenu-link {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 245px;
+    margin-left: 58px;
+    width: 240px;
+	height: 50px;
+    color: #FFF;
+    transition: 0.1s ease-in-out;
+	font-size: 18px;
+    font-weight: 600;
+    background: #A8BCF9;
+	text-decoration: none;
+    border-radius: 8px;
+}
+
+/* メインメニューへ戻るリンクホバー */
+.mainmenu-link:hover {
+	background: #5D84F9;
 }
