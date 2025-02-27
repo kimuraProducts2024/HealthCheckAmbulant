@@ -85,11 +85,14 @@ public class CommonFunc {
 					BigDecimal thousandDecimal = new BigDecimal("1000.0");
 					BigDecimal decimalVision = mTestItem.getVisionLeft().remainder(BigDecimal.ONE).multiply(thousandDecimal);
 					
+					// 取得した左目視力小数部を3桁0埋めする
+					String strVisionLeft = String.format("%03d", decimalVision.intValue());
+					
 					// 左目視力の整数部を設定
 					inputForm.setLeftIntegerPart(mTestItem.getVisionLeft().intValue());
 					
 					// 左目視力の小数部を設定
-					inputForm.setLeftDecimalPart(decimalVision.intValue());
+					inputForm.setLeftDecimalPart(strVisionLeft);
 				}
 				
 				// 取得したMTestItem情報、右目視力がともにnullでない場合
@@ -98,11 +101,14 @@ public class CommonFunc {
 					BigDecimal thousandDecimal = new BigDecimal("1000.0");
 					BigDecimal decimalVision = mTestItem.getVisionRight().remainder(BigDecimal.ONE).multiply(thousandDecimal);
 					
+					// 取得した右目視力小数部を3桁0埋めする
+					String strVisionRight = String.format("%03d", decimalVision.intValue());
+					
 					// 右目視力の整数部を設定
 					inputForm.setRightIntegerPart(mTestItem.getVisionRight().intValue());
 					
 					// 右目視力の小数部を設定
-					inputForm.setRightDecimalPart(decimalVision.intValue());
+					inputForm.setRightDecimalPart(strVisionRight);
 				}
 				
 				// 入力画面タイプをEYETESTに設定
@@ -323,7 +329,7 @@ public class CommonFunc {
 				}
 				
 				// 左目視力小数部が4桁以上の場合
-				if (inputForm.getLeftDecimalPart() >= 1000) {
+				if (Integer.parseInt(inputForm.getLeftDecimalPart()) >= 1000) {
 					// エラーメッセージを設定し、モデルに登録する
 					setErrorLabel("左目小数部は3桁以下で入力してください。", inputForm, model);
 					
@@ -363,7 +369,7 @@ public class CommonFunc {
 				}
 				
 				// 右目視力小数部が4桁以上の場合
-				if (inputForm.getRightDecimalPart() >= 1000) {
+				if (Integer.parseInt(inputForm.getRightDecimalPart()) >= 1000) {
 					// エラーメッセージを設定し、モデルに登録する
 					setLowerErrorLabel("右目小数部は3桁以下で入力してください。", inputForm, model);
 					

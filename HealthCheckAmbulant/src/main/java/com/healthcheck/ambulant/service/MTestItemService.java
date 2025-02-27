@@ -66,9 +66,9 @@ public class MTestItemService {
 			// 視力入力の場合
 			case EYETEST:
 				// 視力の更新処理を実行し、更新件数を取得
-				int[] inputPart = { inputForm.getLeftIntegerPart(), inputForm.getLeftDecimalPart(),
-									 inputForm.getRightIntegerPart(), inputForm.getRightDecimalPart() };
-				resultInt = updateVision(session, inputPart);
+				resultInt = updateVision(session, 
+									inputForm.getLeftIntegerPart(), inputForm.getLeftDecimalPart(),
+									inputForm.getRightIntegerPart(), inputForm.getRightDecimalPart());
 				break;
 			// 聴力入力の場合
 			case HEARINGTEST:
@@ -136,15 +136,17 @@ public class MTestItemService {
 	 *         0：左目整数部、1：左目小数部、2：右目整数部、3：右目小数部
 	 * @return 更新件数
 	 */
-	public int updateVision(HttpSession session, int inputPart[]) {
+	public int updateVision(HttpSession session, 
+					Integer leftIntegerPart, String leftDecimalPart,
+					Integer rightIntegerPart, String rightDecimalPart) {
 		// MUserセッション情報を取得
 		MUser mUser = (MUser)session.getAttribute("MUser");
 		
 		// 左目視力の値に変換
-		BigDecimal visionLeftBg = new BigDecimal(String.valueOf(inputPart[0]) + "." + String.valueOf(inputPart[1]));
+		BigDecimal visionLeftBg = new BigDecimal(String.valueOf(leftIntegerPart) + "." + leftDecimalPart);
 
 		// 右目視力の値に変換
-		BigDecimal visionRightBg = new BigDecimal(String.valueOf(inputPart[2]) + "." + String.valueOf(inputPart[3]));
+		BigDecimal visionRightBg = new BigDecimal(String.valueOf(rightIntegerPart) + "." + rightDecimalPart);
 		
 		// ユーザIDから対象検査項目情報を更新
 		int resultInt = mTestItemMapper.updateVision(String.valueOf(mUser.getUserId()), visionLeftBg, visionRightBg);

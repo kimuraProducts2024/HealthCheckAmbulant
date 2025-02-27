@@ -27,13 +27,13 @@ public class InputForm {
 	private Integer leftIntegerPart;
 	
 	// 視力入力 左目：小数部
-	private Integer leftDecimalPart;
+	private String leftDecimalPart;
 	
 	// 視力入力 右目：整数部
 	private Integer rightIntegerPart;
 	
 	// 視力入力 右目：小数部
-	private Integer rightDecimalPart;
+	private String rightDecimalPart;
 	
 	// エラーメッセージラベル
 	private String errorLabel;
