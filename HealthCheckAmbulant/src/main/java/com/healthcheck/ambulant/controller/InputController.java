@@ -25,9 +25,6 @@ public class InputController {
 	@Autowired
 	MTestItemService mTestItemService;
 	
-	// 共通機能クラス変数
-	CommonFunc comFunc = new CommonFunc();
-	
 	/**
 	 * 入力画面：戻るボタンクリック
 	 * メインメニュー画面に遷移する
@@ -54,7 +51,7 @@ public class InputController {
 	public String showConfirm(InputForm inputForm, HttpSession session, Model model)
 	{
 		// 入力値チェックを行い、次画面への遷移先を返す
-		return comFunc.getNextConfPageName(inputForm, session, model);
+		return CommonFunc.getNextConfPageName(inputForm, session, model);
 	}
 	
 	/**
@@ -68,7 +65,7 @@ public class InputController {
 	public String returnInput(InputForm inputForm, HttpSession session, Model model)
 	{
 		// 入力画面情報を元に、入力画面へ戻る
-		return comFunc.getPrevInputPageName(inputForm, session, model);
+		return CommonFunc.getPrevInputPageName(inputForm, session, model);
 	}
 	
 	/**
@@ -84,6 +81,6 @@ public class InputController {
 	public String showComplete(InputForm inputForm, HttpSession session, Model model)
 	{
 		// ユーザIDを元に、対象検査項目情報の更新処理を実施
-		return comFunc.updateMTestItem(inputForm, session, model, mTestItem, mTestItemService);
+		return CommonFunc.updateMTestItem(inputForm, session, model, mTestItem, mTestItemService);
 	}
 }

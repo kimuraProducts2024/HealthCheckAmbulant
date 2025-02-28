@@ -53,14 +53,11 @@ public class MainMenuController {
 		// 入力画面の各項目情報をモデルに追加する
 		model.addAttribute("inputForm", inputForm);
 		
-		// 共通機能クラスインスタンス生成
-		CommonFunc comFunc = new CommonFunc();
-		
 		// 各入力画面に遷移する際の初期処理
-		comFunc.initInput(id, session, model, mTestItem, mTestItemService);
+		CommonFunc.initInput(id, session, model, mTestItem, mTestItemService);
 		
 		// 遷移先のHTMLファイル名を返す
-		return comFunc.getNextPageName(id);
+		return CommonFunc.getNextPageName(id);
 	}
 
 	/**

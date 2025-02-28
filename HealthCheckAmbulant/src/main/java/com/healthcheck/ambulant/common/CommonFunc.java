@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
  */
 public class CommonFunc {
 	// 遷移先のHTMLファイル名
-	private String screenName = null;
+	private static String screenName = null;
 	
 	/**
 	 * メインメニュー画面：各入力画面に遷移する際の初期処理
@@ -28,7 +28,7 @@ public class CommonFunc {
 	 * @param mTestItem 検査項目情報
 	 * @param mTestItemService 検査項目サービス
 	 */
-	public void initInput(Integer id, HttpSession session, Model model, 
+	public static void initInput(Integer id, HttpSession session, Model model, 
 						MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面情報
 		InputForm inputForm = new InputForm();
@@ -108,7 +108,7 @@ public class CommonFunc {
 	 * @param id クリックしたリンクのID
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getNextPageName(Integer id) {
+	public static String getNextPageName(Integer id) {
 		// 遷移先のHTMLファイル名
 		screenName = null;
 		
@@ -154,7 +154,7 @@ public class CommonFunc {
 	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getNextConfPageName(InputForm inputForm, HttpSession session, Model model) {
+	public static String getNextConfPageName(InputForm inputForm, HttpSession session, Model model) {
 		// 入力画面タイプをsessionから取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
@@ -280,7 +280,7 @@ public class CommonFunc {
 	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getPrevInputPageName(InputForm inputForm, HttpSession session, Model model) {
+	public static String getPrevInputPageName(InputForm inputForm, HttpSession session, Model model) {
 		// 入力画面タイプの取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
@@ -334,7 +334,7 @@ public class CommonFunc {
 	 * @param mTestItemService ユーザ検査項目サービス
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String updateMTestItem(InputForm inputForm, HttpSession session, Model model,
+	public static String updateMTestItem(InputForm inputForm, HttpSession session, Model model,
 			MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面タイプの取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
@@ -386,7 +386,7 @@ public class CommonFunc {
 	 * @param inputForm 入力画面の各項目情報
 	 * @param model モデル
 	 */
-	private void setErrorLabel(String strMessage, InputForm inputForm, Model model) {
+	private static void setErrorLabel(String strMessage, InputForm inputForm, Model model) {
 		// エラーメッセージの設定
 		inputForm.setErrorLabel(strMessage);
 		
