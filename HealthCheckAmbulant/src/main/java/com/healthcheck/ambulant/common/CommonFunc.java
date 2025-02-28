@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
  */
 public class CommonFunc {
 	// 遷移先のHTMLファイル名
-	private String screenName = null;
+	private static String screenName = null;
 	
 	/**
 	 * メインメニュー画面：各入力画面に遷移する際の初期処理
@@ -28,7 +28,7 @@ public class CommonFunc {
 	 * @param mTestItem 検査項目情報
 	 * @param mTestItemService 検査項目サービス
 	 */
-	public void initInput(Integer id, HttpSession session, Model model, 
+	public static void initInput(Integer id, HttpSession session, Model model, 
 						MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面情報
 		InputForm inputForm = new InputForm();
@@ -61,6 +61,21 @@ public class CommonFunc {
 				break;
 			// 体重入力の場合
 			case 2:
+				// 取得したMTestItem情報、体重がともにnullでない場合
+				if (mTestItem != null && mTestItem.getWeight() != null) {
+					// 体重小数部1桁を10倍にした値を取得
+					BigDecimal tenDecimal = new BigDecimal("10.0");
+					BigDecimal decimalWeight = mTestItem.getWeight().remainder(BigDecimal.ONE).multiply(tenDecimal);
+					
+					// 体重の整数部を設定
+					inputForm.setIntegerPart(mTestItem.getWeight().intValue());
+					
+					// 体重の小数部を設定
+					inputForm.setDecimalPart(decimalWeight.intValue());
+				}
+				
+				// 入力画面タイプをWEIGHTに設定
+				inputType = InputType.WEIGHT;
 				break;
 			// 視力入力の場合
 			case 3:
@@ -93,7 +108,7 @@ public class CommonFunc {
 	 * @param id クリックしたリンクのID
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getNextPageName(Integer id) {
+	public static String getNextPageName(Integer id) {
 		// 遷移先のHTMLファイル名
 		screenName = null;
 		
@@ -139,7 +154,7 @@ public class CommonFunc {
 	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getNextConfPageName(InputForm inputForm, HttpSession session, Model model) {
+	public static String getNextConfPageName(InputForm inputForm, HttpSession session, Model model) {
 		// 入力画面タイプをsessionから取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
@@ -196,6 +211,57 @@ public class CommonFunc {
 				// 確認画面に設定
 				screenName = "Confirm";
 				break;
+			// 体重の場合
+			case WEIGHT:
+				// 体重整数部が未入力の場合
+				if (inputForm.getIntegerPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("体重整数部の値を入力してください。", inputForm, model);
+					
+					// 体重入力画面に設定
+					screenName = "InputWeight";
+					break;
+				}
+				
+				// 体重小数部が未入力の場合
+				if (inputForm.getDecimalPart() == null) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("体重小数部の値を入力してください。", inputForm, model);
+					
+					// 体重入力画面に設定
+					screenName = "InputWeight";
+					break;
+				}
+				
+				// 体重整数部が1000以上の場合
+				if (inputForm.getIntegerPart() >= 1000) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("体重整数部は3桁以下で入力してください。", inputForm, model);
+					
+					// 体重入力画面に設定
+					screenName = "InputWeight";
+					break;
+				}
+				
+				// 体重整数部が2桁以上の場合
+				if (inputForm.getDecimalPart() >= 10) {
+					// エラーメッセージを設定し、モデルに登録する
+					setErrorLabel("体重小数部は1桁で入力してください。", inputForm, model);
+					
+					// 体重入力画面に設定
+					screenName = "InputWeight";
+					break;
+				}
+				
+				// 画面表示文字列を体重に設定
+				inputForm.setLabelPart("体重");
+				
+				// InputTypeをWEIGHTに設定
+				inputForm.setInputType(InputType.WEIGHT);
+				
+				// 確認画面に設定
+				screenName = "Confirm";
+				break;
 			default:
 				
 		}
@@ -214,7 +280,7 @@ public class CommonFunc {
 	 * @param model モデル
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String getPrevInputPageName(InputForm inputForm, HttpSession session, Model model) {
+	public static String getPrevInputPageName(InputForm inputForm, HttpSession session, Model model) {
 		// 入力画面タイプの取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
@@ -260,7 +326,7 @@ public class CommonFunc {
 	
 	/**
 	 * 確認画面：入力内容を元に、MTestItem情報を更新し、
-	 * 成功の場合登録完了画面へ遷移する
+	 * 成功の場合、完了画面へ遷移する
 	 * @param inputForm 入力画面の各項目情報
 	 * @param session セッション
 	 * @param model モデル
@@ -268,39 +334,45 @@ public class CommonFunc {
 	 * @param mTestItemService ユーザ検査項目サービス
 	 * @return 遷移先のHTMLファイル名
 	 */
-	public String updateMTestItem(InputForm inputForm, HttpSession session, Model model,
+	public static String updateMTestItem(InputForm inputForm, HttpSession session, Model model,
 			MTestItem mTestItem, MTestItemService mTestItemService) {
 		// 入力画面タイプの取得
 		InputType inputType = (InputType)session.getAttribute("InputType");
 		
 		// 対象検査項目情報の更新件数
 		int resultInt = 0;
+
+		// ユーザIDから対象検査項目情報を更新
+		resultInt = mTestItemService.updateMTestItem(inputForm, session, model);
 		
-		// 入力画面タイプ
-		switch(inputType) {
-			// 身長の場合
-			case HEIGHT:
-				// ユーザIDから対象検査項目情報を更新
-				resultInt = mTestItemService.updateMTestItem(inputForm, session, model);
-				
-				// 更新件数が0件以下の場合
-				if (resultInt <= 0) {
-					// エラーメッセージの設定
-					inputForm.setErrorLabel("データの更新に失敗しました。");
-					
-					// Modelに登録
-					model.addAttribute("inputType", inputType);
-					
+		// 更新件数が0件以下の場合
+		if (resultInt <= 0) {
+			// エラーメッセージの設定
+			inputForm.setErrorLabel("データの更新に失敗しました。");
+			
+			// Modelに登録
+			model.addAttribute("inputType", inputType);
+			
+			// 入力画面タイプ
+			switch(inputType) {
+				// 身長の場合
+				case HEIGHT:
 					// 身長入力画面に設定
 					screenName = "InputHeight";
 					break;
-				}
-				
-				// 登録完了画面に設定
-				screenName = "Complete";
-				break;
-			default:
-				break;
+				// 体重の場合
+				case WEIGHT:
+					// 体重入力画面に設定
+					screenName = "InputWeight";
+					break;
+				default:
+					break;
+			}
+		}
+		// 更新件数が1件以上の場合
+		else {
+			// 完了画面に設定
+			screenName = "Complete";
 		}
 		
 		// 遷移先のHTMLファイル名を返す
@@ -314,7 +386,7 @@ public class CommonFunc {
 	 * @param inputForm 入力画面の各項目情報
 	 * @param model モデル
 	 */
-	private void setErrorLabel(String strMessage, InputForm inputForm, Model model) {
+	private static void setErrorLabel(String strMessage, InputForm inputForm, Model model) {
 		// エラーメッセージの設定
 		inputForm.setErrorLabel(strMessage);
 		

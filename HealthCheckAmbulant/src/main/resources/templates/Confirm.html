@@ -27,12 +27,21 @@
 				<form method="POST" th:action="@{/confirm}" th:object="${inputForm}">
 					<!-- 表示項目 -->
 					<div class="row" th:switch="*{inputType.ordinal()}">
+						<!-- 身長 -->
 						<div class="col input-col" th:case="0">
 							<label class="input-label input-label-top" th:text="*{labelPart}"></label>
 							<input type="number" id="integerPart" class="form-control integer-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
 							<label class="input-label">．</label>
 							<input type="number" id="decimalPart" class="form-control decimal-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
 							<label class="input-label">cm</label>
+						</div>
+						<!-- 体重 -->
+						<div class="col input-col" th:case="1">
+							<label class="input-label input-label-top" th:text="*{labelPart}"></label>
+							<input type="number" id="integerPart" class="form-control integer-part confirm-label" name="integerPart" th:field="*{integerPart}" tabindex="-1" readonly />
+							<label class="input-label">．</label>
+							<input type="number" id="decimalPart" class="form-control decimal-part confirm-label" name="decimalPart" th:field="*{decimalPart}" tabindex="-1" readonly />
+							<label class="input-label">kg</label>
 						</div>
 					</div>
 					<!-- 各ボタン -->
