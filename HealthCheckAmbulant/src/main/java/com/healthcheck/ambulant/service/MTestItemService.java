@@ -104,7 +104,7 @@ public class MTestItemService {
 		// 更新結果を返す
 		return resultInt;
 	}
-	
+
 	/**
 	 * 体重入力画面の入力値から、M_Test_Itemテーブルの身長列を更新
 	 * @param session セッション

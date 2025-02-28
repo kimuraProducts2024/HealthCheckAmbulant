@@ -341,7 +341,7 @@ public class CommonFunc {
 		
 		// 対象検査項目情報の更新件数
 		int resultInt = 0;
-		
+
 		// ユーザIDから対象検査項目情報を更新
 		resultInt = mTestItemService.updateMTestItem(inputForm, session, model);
 		

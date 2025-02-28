@@ -16,7 +16,7 @@ public interface MTestItemMapper {
 	
 	// ユーザIDをキーとして身長更新
 	int updateHeight(String userId, BigDecimal height);
-	
+
 	// ユーザIDをキーとして体重更新
 	int updateWeight(String userId, BigDecimal weight);
 }
