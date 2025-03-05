@@ -17,14 +17,29 @@ public class InputForm {
 	// 画面表示文字列
 	public String labelPart;
 	
-	// 身長入力：整数部
+	// 身長入力、体重入力：整数部
 	private Integer integerPart;
 	
-	// 身長入力：小数部
+	// 身長入力、体重入力：小数部
 	private Integer decimalPart;
 	
-	// メッセージラベル
+	// 視力入力 左目：整数部
+	private Integer leftIntegerPart;
+	
+	// 視力入力 左目：小数部
+	private String leftDecimalPart;
+	
+	// 視力入力 右目：整数部
+	private Integer rightIntegerPart;
+	
+	// 視力入力 右目：小数部
+	private String rightDecimalPart;
+	
+	// エラーメッセージラベル
 	private String errorLabel;
+	
+	// 下部エラーメッセージラベル
+	private String lowerErrorLabel;
 	
 	/*
 	 * 入力画面タイプ
