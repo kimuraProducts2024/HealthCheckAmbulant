@@ -61,6 +61,7 @@ public class MTestItemService {
 			// 体重入力の場合
 			case WEIGHT:
 				// 体重の更新処理を実行し、更新件数を取得
+				resultInt = updateWeight(session, inputForm.getIntegerPart(), inputForm.getDecimalPart());
 				break;
 			// 視力入力の場合
 			case EYETEST:
@@ -99,6 +100,27 @@ public class MTestItemService {
 		
 		// ユーザIDから対象検査項目情報を更新
 		int resultInt = mTestItemMapper.updateHeight(String.valueOf(mUser.getUserId()), heightBg);
+
+		// 更新結果を返す
+		return resultInt;
+	}
+
+	/**
+	 * 体重入力画面の入力値から、M_Test_Itemテーブルの身長列を更新
+	 * @param session セッション
+	 * @param integerPart 体重整数部
+	 * @param decimalPart 体重小数部
+	 * @return 更新件数
+	 */
+	public int updateWeight(HttpSession session, int integerPart, int decimalPart) {
+		// MUserセッション情報を取得
+		MUser mUser = (MUser)session.getAttribute("MUser");
+		
+		// 体重の値に変換
+		BigDecimal weightBg = new BigDecimal(String.valueOf(integerPart) + "." + String.valueOf(decimalPart));
+		
+		// ユーザIDから対象検査項目情報を更新
+		int resultInt = mTestItemMapper.updateWeight(String.valueOf(mUser.getUserId()), weightBg);
 
 		// 更新結果を返す
 		return resultInt;
