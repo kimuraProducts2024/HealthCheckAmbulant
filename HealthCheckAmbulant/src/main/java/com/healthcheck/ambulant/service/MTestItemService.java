@@ -73,6 +73,7 @@ public class MTestItemService {
 			// 聴力入力の場合
 			case HEARINGTEST:
 				// 聴力の更新処理を実行し、更新件数を取得
+				resultInt = updateHearing(session, inputForm.getIntHearing());
 				break;
 			// 血圧入力の場合
 			case BLOODPRESSURE:
@@ -107,7 +108,7 @@ public class MTestItemService {
 		// 更新結果を返す
 		return resultInt;
 	}
-
+	
 	/**
 	 * 体重入力画面の入力値から、M_Test_Itemテーブルの体重列を更新
 	 * @param session セッション
@@ -154,4 +155,24 @@ public class MTestItemService {
 		// 更新結果を返す
 		return resultInt;
 	}
+	
+	/**
+	 * 聴力入力画面の入力値から、M_Test_Itemテーブルの聴力列を更新
+	 * @param session セッション
+	 * @param intHearing 聴力の選択値
+	 */
+	public int updateHearing(HttpSession session, Integer intHearing) {
+		// MUserセッション情報を取得
+		MUser mUser = (MUser)session.getAttribute("MUser");
+		
+		// ユーザIDから対象検査項目情報を更新
+		int resultInt = mTestItemMapper.updateHearing(String.valueOf(mUser.getUserId()), intHearing);
+		
+		// 更新結果を返す
+		return resultInt;
+	}
+	
+	
+	
+	
 }

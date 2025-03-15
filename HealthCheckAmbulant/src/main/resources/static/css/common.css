@@ -101,6 +101,57 @@ input[type="number"]::-webkit-inner-spin-button {
 	width: 80px;
 }
 
+/* 聴力セレクトボックス */
+.select-hearing, .confirm-hearing {
+    position: relative;
+    width: 230px;
+}
+
+.select-hearing::before,
+.select-hearing::after {
+    position: absolute;
+    content: '';
+    pointer-events: none;
+}
+
+.select-hearing::before {
+    display: inline-block;
+    right: 0;
+    width: 2.8em;
+    height: 2.8em;
+    border-radius: 0 3px 3px 0;
+    background-color: #F99CB3;
+}
+
+.select-hearing::after {
+    position: absolute;
+    top: 50%;
+    right: 1.4em;
+    transform: translate(50%, -50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    border-bottom: 3px solid #fff;
+    border-right: 3px solid #fff;
+}
+
+.select-hearing select, .confirm-hearing select {
+    appearance: none;
+    min-width: 230px;
+    height: 2.8em;
+    padding: .4em 3.6em .4em .8em;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* 聴力確認セレクトボックス */
+.confirm-hearing select {
+	background: linear-gradient(gainsboro, gainsboro);
+}
+
 /* ボタンコンテナ */
 .btn-container
 {
@@ -125,8 +176,8 @@ input[type="number"]::-webkit-inner-spin-button {
 	color: white;
 }
 
-/* 各ボタンホバー */
-.btn:hover {
+/* 各ボタンホバー・フォーカス */
+.btn:hover, .btn:focus {
 	color: white;
 }
 
@@ -135,8 +186,8 @@ input[type="number"]::-webkit-inner-spin-button {
 	background-color: #A8BCF9;
 }
 
-/* 戻るボタンホバー */
-.return-button:hover {
+/* 戻るボタンホバー・フォーカス */
+.return-button:hover, .return-button:focus {
 	background-color: #5D84F9;
 }
 
@@ -145,8 +196,9 @@ input[type="number"]::-webkit-inner-spin-button {
 	background-color: #F99CB3;
 }
 
-/* 確認・確定ボタンホバー */
-.confirm-button:hover, .complete-button:hover {
+/* 確認・確定ボタンホバー・フォーカス */
+.confirm-button:hover, .complete-button:hover,
+.confirm-button:focus, .complete-button:focus {
 	background-color: #F95D84;
 }
 
@@ -168,7 +220,8 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 8px;
 }
 
-/* メインメニューへ戻るリンクホバー */
-.mainmenu-link:hover {
+/* メインメニューへ戻るリンクホバー・フォーカス */
+.mainmenu-link:hover, .mainmenu-link:focus {
 	background: #5D84F9;
+	outline: none!important;
 }

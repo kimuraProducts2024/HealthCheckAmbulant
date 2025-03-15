@@ -116,6 +116,14 @@ public class CommonFunc {
 				break;
 			// 聴力入力の場合
 			case 4:
+				// 取得したMTestItem情報、聴力がともにnullでない場合
+				if (mTestItem != null && mTestItem.getHearing() != null) {
+					// 聴力を設定
+					inputForm.setIntHearing(mTestItem.getHearing());
+				}
+				
+				// 入力画面タイプをHEARINGTESTに設定
+				inputType = InputType.HEARINGTEST;
 				break;
 			// 血圧入力の場合
 			case 5:
@@ -387,8 +395,28 @@ public class CommonFunc {
 				// 確認画面に設定
 				screenName = "Confirm";
 				break;
-			default:
+			// 聴力の場合
+			case HEARINGTEST:
+				// 聴力が未選択の場合
+				if (inputForm.getIntHearing() == 0) {
+					setErrorLabel("聴力を選択してください。", inputForm, model);
+					
+					// 聴力入力画面に設定
+					screenName = "InputHearingTest";
+					break;
+				}
 				
+				// 画面表示文字列を聴力に設定
+				inputForm.setLabelPart("聴力");
+				
+				// InputTypeをHEARINGTESTに設定
+				inputForm.setInputType(InputType.HEARINGTEST);
+				
+				// 確認画面に設定
+				screenName = "Confirm";
+				break;
+			default:
+				break;
 		}
 				
 		// Modelに登録
@@ -466,7 +494,7 @@ public class CommonFunc {
 		
 		// 対象検査項目情報の更新件数
 		int resultInt = 0;
-
+		
 		// ユーザIDから対象検査項目情報を更新
 		resultInt = mTestItemService.updateMTestItem(inputForm, session, model);
 		
@@ -496,6 +524,9 @@ public class CommonFunc {
 					screenName = "InputEyeTest";
 					break;
 				default:
+				// 聴力の場合
+				case HEARINGTEST:
+					screenName = "InputHearingTest";
 					break;
 			}
 		}
@@ -531,7 +562,7 @@ public class CommonFunc {
 	 * @param inputForm 入力画面の各項目情報
 	 * @param model モデル
 	 */
-	private void setLowerErrorLabel(String strMessage, InputForm inputForm, Model model) {
+	private static void setLowerErrorLabel(String strMessage, InputForm inputForm, Model model) {
 		// エラーメッセージの設定
 		inputForm.setLowerErrorLabel(strMessage);
 		

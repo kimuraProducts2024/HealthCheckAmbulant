@@ -32,9 +32,11 @@ a {
     border-radius: 8px;
 }
 
-/* リンクホバー */
-a:hover {
+/* リンクホバー・フォーカス */
+a:hover, a:focus {
 	background: #F95D84;
+	outline: none!important;
+	
 }
 
 /* ログアウトボタン */
@@ -46,8 +48,8 @@ a:hover {
 	background-color: #A8BCF9;
 }
 
-/* ログアウトボタンホバー */
-.logoutBtn:hover {
+/* ログアウトボタンホバー・フォーカス */
+.logoutBtn:hover, .logoutBtn:focus {
 	color: white;
 	background-color: #5D84F9;
 }
