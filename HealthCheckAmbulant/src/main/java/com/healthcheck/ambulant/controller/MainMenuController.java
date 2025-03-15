@@ -52,7 +52,7 @@ public class MainMenuController {
 		
 		// 入力画面の各項目情報をモデルに追加する
 		model.addAttribute("inputForm", inputForm);
-
+		
 		// 各入力画面に遷移する際の初期処理
 		CommonFunc.initInput(id, session, model, mTestItem, mTestItemService);
 		

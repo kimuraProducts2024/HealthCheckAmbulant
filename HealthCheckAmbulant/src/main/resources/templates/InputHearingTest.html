@@ -14,5 +14,48 @@
 			聴力入力
 		</div>
 	</header>
+	<!-- メイン -->
+	<main>
+		<!-- コンテナ -->
+		<div class="container">
+			<div class="card sub-container">
+				<!-- タイトル -->
+				<div class="row">
+					<div class="col-sm-5 sub-title">
+						<label for="title-label" class="form-label">聴力入力</label>
+					</div>
+				</div>
+				<form method="POST" th:action="@{/input}" th:object="${inputForm}">
+					<!-- エラーメッセージ -->
+					<div class="row">
+						<label id="errorLabel" class="error-label" name="errorLabel" th:text="*{errorLabel}"></label>
+					</div>
+					<div class="row">
+						<!-- 入力項目 -->
+						<div class="col input-col">
+							<label class="input-label input-label-top">聴力</label>
+							<label class="select-hearing">
+								<select id="selectHearing" class="form-control" name="selectHearing" th:field="*{intHearing}">
+									<option th:value="0"></option>
+									<option th:value="1">正常</option>
+									<option th:value="2">中等度難聴</option>
+									<option th:value="3">高度難聴</option>
+								</select>
+							</label>
+						</div>
+					</div>
+					<!-- 各ボタン -->
+					<div class="btn-container">
+						<div>
+							<input type="submit" id="returnBtn" class="btn btn-lg return-button" name="returnBtn" value="戻る">
+						</div>
+						<div>
+							<input type="submit" id="confirmBtn" class="btn btn-lg confirm-button" name="confirmBtn" value="確認">
+						</div>
+					</div>
+				</form>
+			</form>
+		</div>
+	</main>
 </body>
 </html>
