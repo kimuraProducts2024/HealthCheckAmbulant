@@ -35,6 +35,9 @@ public class InputForm {
 	// 視力入力 右目：小数部
 	private String rightDecimalPart;
 	
+	// 聴力入力 聴力
+	private Integer intHearing;
+	
 	// エラーメッセージラベル
 	private String errorLabel;
 	

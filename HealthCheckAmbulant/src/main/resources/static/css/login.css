@@ -61,7 +61,7 @@ label {
 }
 
 /* ログインボタンホバー */
-.loginBtn:hover {
+.loginBtn:hover, .loginBtn:focus {
 	color: white;
 	background-color: #5D84F9;
 }
