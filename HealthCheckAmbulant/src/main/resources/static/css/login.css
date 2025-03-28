@@ -28,7 +28,7 @@
 
 /* ラベル */
 label {
-	vertical-align:sub;
+	vertical-align: sub;
 	width: 100px;
 }
 
@@ -60,7 +60,7 @@ label {
 	background-color: 	#A8BCF9;
 }
 
-/* ログインボタンホバー */
+/* ログインボタンホバー・フォーカス */
 .loginBtn:hover, .loginBtn:focus {
 	color: white;
 	background-color: #5D84F9;
