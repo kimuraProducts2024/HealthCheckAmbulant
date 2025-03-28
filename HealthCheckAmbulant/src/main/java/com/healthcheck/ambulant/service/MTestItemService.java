@@ -78,6 +78,7 @@ public class MTestItemService {
 			// 血圧入力の場合
 			case BLOODPRESSURE:
 				// 血圧の更新処理を実行し、更新件数を取得
+				resultInt = updateBloodPressure(session, inputForm.getSystolicBloodPressure(), inputForm.getDiastolicBloodPressure());
 				break;
 			// それ以外の場合
 			default:
@@ -172,7 +173,21 @@ public class MTestItemService {
 		return resultInt;
 	}
 	
-	
-	
-	
+	/**
+	 * 血圧入力画面の入力値から、M_Test_Itemテーブルの最大血圧、最小血圧列を更新
+	 * @param session セッション
+	 * @param systolicBloodPressure 最大血圧整数部
+	 * @param diastolicBloodPressure 最小血圧整数部
+	 * @return 更新件数
+	 */
+	public int updateBloodPressure(HttpSession session, int systolicBloodPressure, int diastolicBloodPressure) {
+		// MUserセッション情報を取得
+		MUser mUser = (MUser)session.getAttribute("MUser");
+		
+		// ユーザIDから対象検査項目情報を更新
+		int resultInt = mTestItemMapper.updateBloodPressure(String.valueOf(mUser.getUserId()), systolicBloodPressure, diastolicBloodPressure);
+
+		// 更新結果を返す
+		return resultInt;
+	}	
 }

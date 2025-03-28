@@ -13,7 +13,7 @@
     <result column="vision_left" property="visionLeft" />
     <result column="healing" property="healing" />
     <result column="systolic_blood_pressure" property="systolicBloodPressure" />
-    <result column="disastolic_blood_pressure" property="disastolicBloodPressure" />
+    <result column="diastolic_blood_pressure" property="diastolicBloodPressure" />
  </resultMap>
     <select id="selectMTestItem" resultMap="resultMap2">
     	SELECT * FROM m_test_item WHERE user_id = #{userId}
@@ -30,6 +30,8 @@
     <update id="updateHearing">
     	UPDATE m_test_item SET hearing = #{intHearing} WHERE user_id = #{userId}
     </update>
+    <update id="updateBloodPressure">
+    	UPDATE m_test_item SET systolic_blood_pressure = #{systolicBloodPressure}, 
+    	diastolic_blood_pressure = #{diastolicBloodPressure} WHERE user_id = #{userId}
+    </update>
 </mapper>
-
-

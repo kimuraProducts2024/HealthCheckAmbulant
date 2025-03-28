@@ -32,7 +32,11 @@ public class MainMenuController {
 	 * @return 遷移先のHTMLファイル名
 	 */
 	@GetMapping("/mainmenu")
-	public String showMainMenu() {
+	public String showMainMenu(HttpSession session) {
+		// 入力画面タイプのセッションをクリアする
+		session.setAttribute("InputType", null);
+		
+		// 遷移先のHTMLファイル名を返す
 		return "MainMenu.html";
 	}
 	

@@ -38,6 +38,12 @@ public class InputForm {
 	// 聴力入力 聴力
 	private Integer intHearing;
 	
+	// 血圧入力 最大血圧
+	private Integer systolicBloodPressure;
+	
+	// 血圧入力 最小血圧
+	private Integer diastolicBloodPressure;
+	
 	// エラーメッセージラベル
 	private String errorLabel;
 	

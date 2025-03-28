@@ -23,15 +23,13 @@ public class MUserService {
 	
 	/**
 	 * 入力値チェック後、次ページへ遷移する
-	 * ユーザID、パスワード未入力チェック、
-	 * ユーザID存在チェック、パスワード整合性チェック
 	 * OKの場合：メインメニュー画面へ遷移する
 	 * NGの場合：ログイン画面に戻る
 	 * @param userId ユーザID
 	 * @param password パスワード
 	 * @param redirectAttributes リダイレクト受渡しオブジェクト
-	 * @param session セッション変数
-	 * @return true：正常、false：異常
+	 * @param session セッション
+	 * @return 正常：メインメニュー画面の遷移先、false：ログイン画面のリダイレクト
 	 * @throws NoSuchAlgorithmException MessageDigest呼出に伴う例外
 	 */
 	public String sendNextPage(String userId, String password, RedirectAttributes redirectAttributes,
@@ -39,6 +37,32 @@ public class MUserService {
 		// エラーメッセージクリア
 		redirectAttributes.addFlashAttribute("errorLabel", "");
 		
+		// 入力エラーの場合
+		if (!inputCheck(userId, password, redirectAttributes, session)) {
+			
+			// ログイン画面に戻る
+			return "redirect:";
+		}
+		
+		// メインメニューに遷移する
+		return "MainMenu";
+	}
+	
+	/**
+	 * 入力値チェック
+	 * ユーザID、パスワード未入力チェック、
+	 * ユーザID存在チェック、パスワード整合性チェック
+	 * OKの場合：trueを返す
+	 * NGの場合：falseを返す
+	 * @param userId ユーザID
+	 * @param password パスワード
+	 * @param redirectAttributes リダイレクト受渡しオブジェクト
+	 * @param session セッション
+	 * @return true：正常、false：異常
+	 * @throws NoSuchAlgorithmException MessageDigest呼出に伴う例外
+	 */
+	private boolean inputCheck(String userId, String password, RedirectAttributes redirectAttributes,
+								HttpSession session) throws NoSuchAlgorithmException {
 		// ユーザID未入力チェック
 		if (userId == null || userId.isBlank()) {
 			// パスワード受渡し
@@ -47,8 +71,7 @@ public class MUserService {
 			// エラーメッセージの設定
 			redirectAttributes.addFlashAttribute("errorLabel", "ユーザIDが未入力です。");
 			
-			// ログイン画面に戻る
-			return "redirect:";
+			return false;
 		}
 		
 		// パスワード未入力チェック
@@ -59,15 +82,11 @@ public class MUserService {
 			// エラーメッセージの設定
 			redirectAttributes.addFlashAttribute("errorLabel", "パスワードが未入力です。");
 			
-			// ログイン画面に戻る
-			return "redirect:";
+			return false;
 		}
 		
-		// MUserクラスオブジェクト
-		MUser mUser = null;
-		
 		// ユーザIDから対象ユーザを検索
-		mUser = mUserMapper.selectMUser(userId);
+		MUser mUser = mUserMapper.selectMUser(userId);
 		
 		// 該当ユーザ存在チェック
 		// ユーザが存在しない場合
@@ -81,8 +100,7 @@ public class MUserService {
 			// エラーメッセージの設定
 			redirectAttributes.addFlashAttribute("errorLabel", "該当ユーザは存在しません。");
 			
-			// ログイン画面に戻る
-			return "redirect:";
+			return false;
 		}
 		
 		// パスワードチェック
@@ -109,14 +127,12 @@ public class MUserService {
 			// エラーメッセージの設定
 			redirectAttributes.addFlashAttribute("errorLabel", "パスワードが異なります。");
 			
-			// ログイン画面に戻る
-			return "redirect:";
+			return false;
 		}
 		
 		// MUser情報をセッションに設定
 		session.setAttribute("MUser", mUser);
 		
-		// メインメニューに遷移する
-		return "MainMenu";
+		return true;
 	}
 }

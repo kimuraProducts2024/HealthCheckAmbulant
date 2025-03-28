@@ -32,5 +32,5 @@ public class MTestItem {
 	private Integer systolicBloodPressure;
 	
 	// 最小血圧
-	private Integer disastolicBloodPressure;
+	private Integer diastolicBloodPressure;
 }
