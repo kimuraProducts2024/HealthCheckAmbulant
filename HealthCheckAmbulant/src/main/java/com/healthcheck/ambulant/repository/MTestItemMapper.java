@@ -11,7 +11,7 @@ import com.healthcheck.ambulant.entity.MTestItem;
  */
 @Mapper
 public interface MTestItemMapper {
-	// データ検索
+	// ユーザIDをキーとしてデータ検索
 	MTestItem selectMTestItem(String userId);
 	
 	// ユーザIDをキーとして身長更新
@@ -25,4 +25,7 @@ public interface MTestItemMapper {
 	
 	// ユーザIDをキーとして聴力更新
 	int updateHearing(String userId, Integer intHearing);
+	
+	// ユーザIDをキーとして血圧更新
+	int updateBloodPressure(String userId, Integer systolicBloodPressure, Integer diastolicBloodPressure);
 }

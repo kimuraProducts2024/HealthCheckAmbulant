@@ -9,7 +9,7 @@ import com.healthcheck.ambulant.entity.MUser;
  */
 @Mapper
 public interface MUserMapper {
-	// データ検索
+	// ユーザIDをキーとしてデータ検索
 	MUser selectMUser(String userId);
 }
 
