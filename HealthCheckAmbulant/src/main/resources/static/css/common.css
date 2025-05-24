@@ -26,7 +26,6 @@ header {
 .container 
 {
 	margin: auto;
-	position: absolute;
 	height: 650px;
 	align-items: center;
 }
